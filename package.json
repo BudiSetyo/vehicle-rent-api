@@ -18,6 +18,7 @@
         "prettier": "^2.7.1"
     },
     "dependencies": {
+        "cloudinary": "^1.32.0",
         "mysql": "^2.18.1",
         "mysql2": "^2.3.3",
         "pg": "^8.8.0"
