@@ -1,0 +1,25 @@
+{
+    "name": "api-v1-boilerplate",
+    "version": "1.0.0",
+    "description": "boilerplate for develop backend",
+    "main": "index.js",
+    "license": "MIT",
+    "scripts": {
+        "format:check": "prettier --check .",
+        "format:write": "prettier --write .",
+        "lint:check": "eslint .",
+        "lint:fix": "eslint --fix ."
+    },
+    "devDependencies": {
+        "dotenv": "^16.0.3",
+        "eslint": "^8.24.0",
+        "eslint-config-prettier": "^8.5.0",
+        "knex": "^2.3.0",
+        "prettier": "^2.7.1"
+    },
+    "dependencies": {
+        "mysql": "^2.18.1",
+        "mysql2": "^2.3.3",
+        "pg": "^8.8.0"
+    }
+}

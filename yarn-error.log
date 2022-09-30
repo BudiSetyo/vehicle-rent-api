@@ -1,0 +1,40 @@
+Arguments: 
+  C:\Users\9bbam\scoop\apps\nvm\current\nodejs\nodejs\node.exe C:\Users\9bbam\scoop\apps\nvm\current\nodejs\nodejs\node_modules\yarn\bin\yarn.js add eslint eslint-config-prettier prettier –-save-dev
+
+PATH: 
+  C:\Program Files\WindowsApps\Microsoft.PowerShell_7.2.6.0_x64__8wekyb3d8bbwe;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Users\9bbam\scoop\apps\nvm\current\nodejs\nodejs;C:\Users\9bbam\scoop\shims;C:\Users\9bbam\AppData\Local\Microsoft\WindowsApps;C:\Users\9bbam\AppData\Local\Programs\Microsoft VS Code\bin
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  16.17.0
+
+Platform: 
+  win32 x64
+
+Trace: 
+  TypeError [ERR_UNESCAPED_CHARACTERS]: https://registry.yarnpkg.com/–-save-dev: Request path contains unescaped characters
+      at new NodeError (node:internal/errors:387:5)
+      at new ClientRequest (node:_http_client:173:13)
+      at Object.request (node:https:357:10)
+      at Request.module.exports.Request.start (C:\Users\9bbam\scoop\persist\nvm\nodejs\v16.17.0\node_modules\yarn\lib\cli.js:141452:32)
+      at Request.module.exports.Request.end (C:\Users\9bbam\scoop\persist\nvm\nodejs\v16.17.0\node_modules\yarn\lib\cli.js:142211:10)
+      at end (C:\Users\9bbam\scoop\persist\nvm\nodejs\v16.17.0\node_modules\yarn\lib\cli.js:141265:14)
+      at Immediate.<anonymous> (C:\Users\9bbam\scoop\persist\nvm\nodejs\v16.17.0\node_modules\yarn\lib\cli.js:141279:7)
+      at processImmediate (node:internal/timers:466:21)
+
+npm manifest: 
+  {
+    "name": "api-v1-boilerplate",
+    "version": "1.0.0",
+    "description": "boilerplate for develop backend",
+    "main": "index.js",
+    "license": "MIT"
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
