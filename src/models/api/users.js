@@ -32,8 +32,25 @@ class UsersModel extends mixin(Model, [
     static get jsonSchema() {
         return {
             type: 'object',
-            required: ['email'],
-            properties: {},
+            required: [],
+            properties: {
+                id: { type: 'string', format: 'uuid' },
+                email: { type: 'string', minLength: 1, maxLength: 255 },
+                password: { type: 'string' },
+                name: { type: 'string' },
+                roleId: { type: 'string', format: 'uuid' },
+                gender: {
+                    type: 'string',
+                    enum: ['male', 'female'],
+                    default: 'male',
+                },
+                address: { type: 'string' },
+                phoneNumber: { type: 'string' },
+                birth: { type: 'date' },
+                locationId: { type: 'string', format: 'uuid' },
+                createdAt: { type: 'string', format: 'date-time' },
+                updatedAt: { type: 'string', format: 'date-time' },
+            },
         }
     }
 
