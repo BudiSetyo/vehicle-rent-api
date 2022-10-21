@@ -13,17 +13,18 @@ exports.insertUser = async (data) => {
             data: _data,
         }
     } catch (err) {
+        console.log(err)
         return {
-            error: true,
+            err: true,
             data: err,
         }
     }
 }
 
-exports.getUser = async (data) => {
+exports.login = async (data) => {
     try {
         const _data = await UsersModel.query().findOne({ email: data.email })
-        const checkPass = await _data.verifyPassword(password)
+        const checkPass = await _data.verifyPassword(data.password)
 
         if (!checkPass) {
             return {

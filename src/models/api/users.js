@@ -2,7 +2,7 @@ const { Model, mixin } = require('objection')
 const Password = require('objection-password')()
 const softDelete = require('objection-soft-delete')
 const guid = require('objection-guid')()
-const _ = require('lodash')
+// const _ = require('lodash')
 const moment = require('moment')
 const { DBErrors } = require('objection-db-errors')
 
@@ -26,7 +26,7 @@ class UsersModel extends mixin(Model, [
 
     $formatJson(json) {
         json = super.$formatJson(json)
-        return _.omit(json, this.secureFields)
+        // return _.omit(json, this.secureFields)
     }
 
     static get jsonSchema() {
@@ -34,11 +34,11 @@ class UsersModel extends mixin(Model, [
             type: 'object',
             required: [],
             properties: {
-                id: { type: 'string', format: 'uuid' },
+                id: { type: 'string' },
                 email: { type: 'string', minLength: 1, maxLength: 255 },
                 password: { type: 'string' },
                 name: { type: 'string' },
-                roleId: { type: 'string', format: 'uuid' },
+                roleId: { type: 'string', nullable: true },
                 gender: {
                     type: 'string',
                     enum: ['male', 'female'],
@@ -46,10 +46,10 @@ class UsersModel extends mixin(Model, [
                 },
                 address: { type: 'string' },
                 phoneNumber: { type: 'string' },
-                birth: { type: 'date' },
-                locationId: { type: 'string', format: 'uuid' },
-                createdAt: { type: 'string', format: 'date-time' },
-                updatedAt: { type: 'string', format: 'date-time' },
+                birth: { type: 'string' },
+                locationId: { type: 'string', nullable: true },
+                createdAt: { type: 'string' },
+                updatedAt: { type: 'string' },
             },
         }
     }
