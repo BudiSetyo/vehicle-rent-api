@@ -1,9 +1,19 @@
 const authSchema = require('../../schemes/api/auth')
+const usersSchema = require('../../schemes/api/users')
 const { response } = require('../../utils/response')
 const { generateToken } = require('../../services/token')
 
 const register = async (req, res) => {
     const { email, name, password } = req.body
+
+    const checkUserExist = await usersSchema.getUserByEmail(email)
+
+    if (checkUserExist.data !== undefined) {
+        return response(res, 400, {
+            error: true,
+            message: 'User already exist',
+        })
+    }
 
     const _data = await authSchema.insertUser({ email, name, password })
 
@@ -17,20 +27,25 @@ const register = async (req, res) => {
     return response(res, 200, {
         error: false,
         message: 'Register success',
-        data: _data,
     })
 }
 
 const login = async (req, res) => {
     const { email, password } = req.body
 
-    const _data = await authSchema.login({ email, password })
+    const checkUserExist = await usersSchema.getUserByEmail(email)
 
-    if (!_data.data) {
+    if (checkUserExist.data === undefined) {
         return response(res, 400, {
             error: true,
             message: 'User not found!',
         })
+    }
+
+    const _data = await authSchema.login({ email, password })
+
+    if (!_data.data) {
+        return response(res, 400, _data)
     }
 
     const tokenData = {

@@ -1,6 +1,6 @@
 const UsersModel = require('../../models/api/users')
 
-exports.insertUser = async (data) => {
+const insertUser = async (data) => {
     try {
         const _data = await UsersModel.query().insert({
             email: data.email,
@@ -13,7 +13,6 @@ exports.insertUser = async (data) => {
             data: _data,
         }
     } catch (err) {
-        console.log(err)
         return {
             err: true,
             data: err,
@@ -21,7 +20,7 @@ exports.insertUser = async (data) => {
     }
 }
 
-exports.login = async (data) => {
+const login = async (data) => {
     try {
         const _data = await UsersModel.query().findOne({ email: data.email })
         const checkPass = await _data.verifyPassword(data.password)
@@ -43,4 +42,9 @@ exports.login = async (data) => {
             data: err,
         }
     }
+}
+
+module.exports = {
+    insertUser,
+    login,
 }

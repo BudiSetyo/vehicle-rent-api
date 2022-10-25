@@ -11,6 +11,7 @@ exports.up = async function (knex) {
         table.string('phoneNumber')
         table.date('birth')
         table.uuid('locationId')
+        table.string('profileImage')
         table.timestamp('createdAt').defaultTo(knex.fn.now()).notNullable()
         table.timestamp('updatedAt').defaultTo(knex.fn.now()).notNullable()
     })

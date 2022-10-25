@@ -1,25 +1,56 @@
 const usersSchema = require('../../schemes/api/users')
 const { response } = require('../../utils/response')
 
-const createUser = async (req, res) => {
-    const { email, name, password } = req.payload
+const editProfile = async (req, res) => {
+    const data = req.body
+    const userId = req.credential.id
 
-    const _data = await usersSchema.insertUser({ email, name, password })
+    const edit = await usersSchema.editUser(data, userId)
 
-    if (_data.err) {
+    if (edit.err) {
         return response(res, 400, {
-            err: true,
-            message: 'Register user failed',
+            error: true,
+            message: 'Edit user failed',
         })
     }
 
     return response(res, 200, {
-        err: false,
-        message: 'Register success',
-        data: _data,
+        error: false,
+        message: 'Edit user success',
+        data: edit,
+    })
+}
+
+const editPassword = async (req, res) => {
+    const { password } = req.body
+    const userId = req.credential.id
+
+    const checkPass = await usersSchema.checkPassword(userId, password)
+
+    if (!checkPass.data) {
+        return response(res, 400, {
+            error: true,
+            message: 'Wrong password!',
+        })
+    }
+
+    const edit = await usersSchema.editUser({ password: password }, userId)
+
+    if (edit.err) {
+        return response(res, 400, {
+            error: true,
+            message: 'Edit password failed',
+        })
+    }
+
+    return response(res, 200, {
+        error: false,
+        message: 'Edit password success',
+        data: edit,
     })
 }
 
 module.exports = {
-    createUser,
+    editProfile,
+    editPassword,
 }

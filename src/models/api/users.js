@@ -2,7 +2,6 @@ const { Model, mixin } = require('objection')
 const Password = require('objection-password')()
 const softDelete = require('objection-soft-delete')
 const guid = require('objection-guid')()
-// const _ = require('lodash')
 const moment = require('moment')
 const { DBErrors } = require('objection-db-errors')
 
@@ -26,7 +25,6 @@ class UsersModel extends mixin(Model, [
 
     $formatJson(json) {
         json = super.$formatJson(json)
-        // return _.omit(json, this.secureFields)
     }
 
     static get jsonSchema() {
