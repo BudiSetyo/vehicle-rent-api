@@ -22,10 +22,10 @@ const editProfile = async (req, res) => {
 }
 
 const editPassword = async (req, res) => {
-    const { password } = req.body
+    const { oldPassword, newPassword } = req.body
     const userId = req.credential.id
 
-    const checkPass = await usersSchema.checkPassword(userId, password)
+    const checkPass = await usersSchema.checkPassword(userId, oldPassword)
 
     if (!checkPass.data) {
         return response(res, 400, {
@@ -34,7 +34,7 @@ const editPassword = async (req, res) => {
         })
     }
 
-    const edit = await usersSchema.editUser({ password: password }, userId)
+    const edit = await usersSchema.editUser({ password: newPassword }, userId)
 
     if (edit.err) {
         return response(res, 400, {
