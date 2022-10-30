@@ -7,7 +7,7 @@ const editProfile = async (req, res) => {
 
     const edit = await usersSchema.editUser(data, userId)
 
-    if (edit.err) {
+    if (edit.error) {
         return response(res, 400, {
             error: true,
             message: 'Edit user failed',
@@ -36,7 +36,7 @@ const editPassword = async (req, res) => {
 
     const edit = await usersSchema.editUser({ password: newPassword }, userId)
 
-    if (edit.err) {
+    if (edit.error) {
         return response(res, 400, {
             error: true,
             message: 'Edit password failed',

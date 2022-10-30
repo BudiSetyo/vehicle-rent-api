@@ -67,8 +67,7 @@ const editUser = async (data, id) => {
     } catch (err) {
         return {
             error: true,
-            data,
-            err,
+            data: err,
         }
     }
 }

@@ -12,7 +12,6 @@ const authentication = (req, res, next) => {
     }
 
     const verify = tokenServices.verifyToken(token)
-    console.log(verify)
 
     if (verify.name === 'JsonWebTokenError') {
         return response(res, 400, {

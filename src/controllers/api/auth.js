@@ -17,7 +17,7 @@ const register = async (req, res) => {
 
     const _data = await authSchema.insertUser({ email, name, password })
 
-    if (_data.err) {
+    if (_data.error) {
         return response(res, 400, {
             error: true,
             message: 'Register user failed',
