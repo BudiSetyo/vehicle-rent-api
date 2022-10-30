@@ -8,6 +8,7 @@ exports.up = function (knex) {
         table.string('name')
         table.uuid('typeId')
         table.uuid('locationId')
+        table.boolean('isPopular')
         table.text('description')
         table.integer('price')
         table.uuid('statusId')

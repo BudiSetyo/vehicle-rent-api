@@ -26,7 +26,40 @@ class VehiclesModel extends Model {
         }
     }
 
-    static get relationMappings() {}
+    static get relationMappings() {
+        const TypesModel = require('./vehicleType')
+        const LocationsModel = require('./location')
+        const StatusModel = require('./vehicleStatus')
+
+        return {
+            vehicleType: {
+                relation: Model.BelongsToOneRelation,
+                modelClass: TypesModel,
+                join: {
+                    from: 'vehicles.typeId',
+                    to: 'vehicleType.id',
+                },
+            },
+
+            vehicleLocation: {
+                relation: Model.BelongsToOneRelation,
+                modelClass: LocationsModel,
+                join: {
+                    from: 'vehicles.locationId',
+                    to: 'location.id',
+                },
+            },
+
+            vehicleStatus: {
+                relation: Model.BelongsToOneRelation,
+                modelClass: StatusModel,
+                join: {
+                    from: 'vehicles.statusId',
+                    to: 'vehicleStatus.id',
+                },
+            },
+        }
+    }
 }
 
 module.exports = VehiclesModel
