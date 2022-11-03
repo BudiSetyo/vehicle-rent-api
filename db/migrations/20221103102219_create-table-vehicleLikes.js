@@ -3,17 +3,10 @@
  * @returns { Promise<void> }
  */
 exports.up = function (knex) {
-    return knex.schema.createTable('vehicles', (table) => {
+    return knex.schema.createTable('vehicleLikes', (table) => {
         table.uuid('id').defaultTo(knex.raw('uuid_generate_v4()')).primary()
-        table.string('name').notNullable().unique().comment('Name is unique')
-        table.uuid('typeId')
-        table.uuid('locationId')
-        table.boolean('isPopular')
-        table.text('description')
-        table.integer('price')
-        table.uuid('statusId')
-        table.string('picture')
-        table.integer('stock')
+        table.uuid('userId')
+        table.uuid('vehicleId')
         table.timestamp('createdAt').defaultTo(knex.fn.now()).notNullable()
         table.timestamp('updatedAt').defaultTo(knex.fn.now()).notNullable()
     })
@@ -24,5 +17,5 @@ exports.up = function (knex) {
  * @returns { Promise<void> }
  */
 exports.down = function (knex) {
-    return knex.schema.dropTable('vehicles')
+    return knex.schema.dropTable('vehicleLikes')
 }

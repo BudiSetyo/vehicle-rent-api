@@ -2,9 +2,10 @@ const Knex = require('knex')
 const express = require('express')
 const cors = require('cors')
 const morgan = require('morgan')
-const routes = require('./routes/v1')
 const Model = require('objection').Model
 const knexConfig = require('../knexfile')
+
+const routesAPI = require('./routes/v1/api')
 
 const app = express()
 
@@ -28,7 +29,7 @@ app.options('*', cors())
 app.use(morgan('dev'))
 
 // v1 api routes
-app.use('/v1', routes)
+app.use('/v1', routesAPI)
 
 // test
 app.get('/', (_, res) => {
