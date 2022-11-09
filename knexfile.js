@@ -1,6 +1,5 @@
 // Update with your config settings.
-require('dotenv').config()
-const { DB, DB_USER, DB_PASSWORD } = process.env
+const { database } = require('./src/configs/config')
 
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
@@ -9,9 +8,9 @@ module.exports = {
     development: {
         client: 'pg',
         connection: {
-            database: DB,
-            user: DB_USER,
-            password: DB_PASSWORD,
+            database: database.db,
+            user: database.user,
+            password: database.user,
         },
         migrations: {
             directory: './db/migrations',

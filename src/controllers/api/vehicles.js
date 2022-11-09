@@ -1,5 +1,6 @@
 const vehiclesSchema = require('../../schemes/api/vehicles')
 const { response } = require('../../utils/response')
+const cloudinary = require('../../services/coudinary.config')
 
 const addVehicle = async (req, res) => {
     const data = req.body
@@ -13,8 +14,6 @@ const addVehicle = async (req, res) => {
         })
     }
 
-    const _data = await vehiclesSchema.createVehicle(data)
-
     if (_data.error) {
         return response(res, 400, {
             error: true,
@@ -25,6 +24,58 @@ const addVehicle = async (req, res) => {
     return response(res, 200, {
         error: false,
         message: 'Add vehicle success',
+    })
+}
+
+const editImageVehicle = async (req, res) => {
+    const { file } = req.file
+    const { id } = req.query
+
+    if (!file.path) {
+        return response(res, 400, {
+            error: true,
+            message: 'Image file not found',
+        })
+    }
+
+    const upload = await cloudinary.uploader.upload(req.file.path)
+
+    const _data = await vehiclesSchema.editVehicle(
+        {
+            picture: upload.secure.url,
+        },
+        id
+    )
+
+    if (_data.error) {
+        return response(res, 400, {
+            error: true,
+            message: 'Edit image vehicle failed',
+        })
+    }
+
+    return response(res, 400, {
+        error: false,
+        message: 'Edit image vehicle success',
+    })
+}
+
+const editVehicle = async (req, res) => {
+    const { id } = req.query
+    const data = req.body
+
+    const _data = await vehiclesSchema.editVehicle(data, id)
+
+    if (_data.error) {
+        return response(res, 400, {
+            error: true,
+            message: 'Edit vehicle failed',
+        })
+    }
+
+    return response(res, 400, {
+        error: false,
+        message: 'Edit vehicle success',
     })
 }
 
@@ -77,4 +128,6 @@ module.exports = {
     addVehicle,
     getAllVehicle,
     getVehicleById,
+    editImageVehicle,
+    editVehicle,
 }

@@ -1,6 +1,7 @@
 const express = require('express')
 const vehiclesController = require('../../../controllers/api/vehicles')
 const authMiddleware = require('../../../middlewares/auth')
+// const multer = require('../../../utils/multer')
 
 const router = express.Router()
 
