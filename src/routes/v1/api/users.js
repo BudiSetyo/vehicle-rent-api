@@ -6,13 +6,13 @@ const authMiddleware = require('../../../middlewares/auth')
 
 const router = express.Router()
 
-router.post(
+router.patch(
     '/edit-profile',
     authMiddleware.authentication,
     usersController.editProfile
 )
 
-router.post(
+router.patch(
     '/edit-password',
     authMiddleware.authentication,
     usersController.editPassword

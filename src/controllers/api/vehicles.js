@@ -38,7 +38,7 @@ const editImageVehicle = async (req, res) => {
         })
     }
 
-    const upload = await cloudinary.uploader.upload(req.file.path)
+    const upload = await cloudinary.uploader.upload(file.path)
 
     const _data = await vehiclesSchema.editVehicle(
         {
@@ -54,7 +54,7 @@ const editImageVehicle = async (req, res) => {
         })
     }
 
-    return response(res, 400, {
+    return response(res, 200, {
         error: false,
         message: 'Edit image vehicle success',
     })
@@ -73,7 +73,7 @@ const editVehicle = async (req, res) => {
         })
     }
 
-    return response(res, 400, {
+    return response(res, 200, {
         error: false,
         message: 'Edit vehicle success',
     })
