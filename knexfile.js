@@ -8,9 +8,12 @@ module.exports = {
     development: {
         client: 'pg',
         connection: {
+            host: database.host,
             database: database.db,
             user: database.user,
-            password: database.user,
+            password: database.password,
+            port: database.port,
+            charset: 'utf8',
         },
         migrations: {
             directory: './db/migrations',

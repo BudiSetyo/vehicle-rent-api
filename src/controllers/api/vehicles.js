@@ -14,6 +14,8 @@ const addVehicle = async (req, res) => {
         })
     }
 
+    const _data = await vehiclesSchema.createVehicle(data)
+
     if (_data.error) {
         return response(res, 400, {
             error: true,

@@ -10,9 +10,11 @@ const config = {
         apiSecret: env.CLOUD_API_SECRET,
     },
     database: {
-        db: env.DB,
+        host: env.DB_HOST,
+        db: env.DB_NAME,
         user: env.DB_USER,
-        password: env.DB_PASSWORD,
+        password: env.DB_PASS,
+        port: env.DB_PORT,
     },
     jwt: {
         secretKey: env.SECRET_KEY,
