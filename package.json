@@ -9,7 +9,8 @@
         "format:write": "prettier --write .",
         "lint:check": "eslint .",
         "lint:fix": "eslint --fix .",
-        "dev": "nodemon"
+        "dev": "nodemon",
+        "start": "node index.js"
     },
     "devDependencies": {
         "cors": "^2.8.5",
