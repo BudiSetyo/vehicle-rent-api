@@ -23,7 +23,20 @@ class ReservationsModel extends Model {
         }
     }
 
-    static get relationMappings() {}
+    static get relationMappings() {
+        const PaymentsModel = require('./payments')
+
+        return {
+            payment: {
+                relation: Model.BelongsToOneRelation,
+                modelClass: PaymentsModel,
+                join: {
+                    from: 'reservations.id',
+                    to: 'payments.reservationsId',
+                },
+            },
+        }
+    }
 }
 
 module.exports = ReservationsModel

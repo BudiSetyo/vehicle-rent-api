@@ -25,6 +25,26 @@ const addPayment = async (req, res) => {
     })
 }
 
+const editPayment = async (req, res) => {
+    const { paymentId } = req.query
+    const { statusPayment } = req.body
+
+    const _data = await paymentsSchema.editPayment(statusPayment, paymentId)
+
+    if (_data.error) {
+        return response(res, 400, {
+            error: true,
+            message: 'Edit payment failed',
+        })
+    }
+
+    return response(res, 200, {
+        error: false,
+        message: 'Edit payment success',
+    })
+}
+
 module.exports = {
     addPayment,
+    editPayment,
 }

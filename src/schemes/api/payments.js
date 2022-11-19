@@ -16,6 +16,25 @@ const createPayment = async (data) => {
     }
 }
 
+const editPayment = async (status, id) => {
+    try {
+        const _data = await PaymentsModel.query()
+            .patch({ statusPayment: status })
+            .where({ id: id })
+
+        return {
+            error: false,
+            data: _data,
+        }
+    } catch (err) {
+        return {
+            error: true,
+            data: err,
+        }
+    }
+}
+
 module.exports = {
     createPayment,
+    editPayment,
 }

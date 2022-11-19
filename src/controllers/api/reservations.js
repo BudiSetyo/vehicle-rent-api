@@ -26,6 +26,26 @@ const addReservation = async (req, res) => {
     })
 }
 
+const getAllReservation = async (req, res) => {
+    const { userId } = req.query
+
+    const _data = await reservationsSchema.getAllReservation(userId)
+
+    if (_data.error) {
+        return response(res, 400, {
+            error: true,
+            message: 'Get all reservation failed',
+        })
+    }
+
+    return response(res, 200, {
+        error: false,
+        message: 'Get all reservation success',
+        data: _data,
+    })
+}
+
 module.exports = {
     addReservation,
+    getAllReservation,
 }
