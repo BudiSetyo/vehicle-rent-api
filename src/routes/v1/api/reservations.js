@@ -9,5 +9,10 @@ const router = express.Router()
 router
     .route('/')
     .post(authMiddleware.authentication, reservationsController.addReservation)
+    .delete(authMiddleware.authentication, reservationsController.deleteHistory)
+    .get(
+        authMiddleware.authentication,
+        reservationsController.getAllReservation
+    )
 
 module.exports = router

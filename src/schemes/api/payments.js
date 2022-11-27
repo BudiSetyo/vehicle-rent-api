@@ -34,7 +34,26 @@ const editPayment = async (status, id) => {
     }
 }
 
+const deletePayment = async (id) => {
+    try {
+        const _data = await PaymentsModel.query()
+            .delete()
+            .where('payments.reservationId', id)
+
+        return {
+            error: false,
+            data: _data,
+        }
+    } catch (err) {
+        return {
+            error: true,
+            data: err,
+        }
+    }
+}
+
 module.exports = {
     createPayment,
     editPayment,
+    deletePayment,
 }

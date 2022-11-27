@@ -7,7 +7,8 @@ const authMiddleware = require('../../../middlewares/auth')
 const router = express.Router()
 
 router
-    .route('payment')
+    .route('/')
     .post(authMiddleware.authentication, paymentsController.addPayment)
+    .patch(authMiddleware.authentication, paymentsController.editPayment)
 
 module.exports = router

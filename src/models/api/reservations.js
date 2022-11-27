@@ -32,7 +32,7 @@ class ReservationsModel extends Model {
                 modelClass: PaymentsModel,
                 join: {
                     from: 'reservations.id',
-                    to: 'payments.reservationsId',
+                    to: 'payments.reservationId',
                 },
             },
         }
