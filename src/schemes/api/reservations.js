@@ -16,17 +16,20 @@ const createReservation = async (data) => {
     }
 }
 
-const getAllReservation = async (userId) => {
+const getAllReservation = async (userId, search, type, date) => {
     try {
-        const _data = await ReservationsModel.query()
-            .leftJoinRelated('payment')
-            .select('reservations.*')
-            .withGraphFetched('payment')
-            .where('reservations.userId', userId)
+        if (!search && !type && !date) {
+            const _data = await ReservationsModel.query()
+                .select('reservations.*')
+                .withGraphFetched('payment')
+                .withGraphFetched('vehicleReservation')
+                .where('reservations.userId', userId)
+                .orderBy('reservations.updatedAt', 'DESC')
 
-        return {
-            error: false,
-            data: _data,
+            return {
+                error: false,
+                data: _data,
+            }
         }
     } catch (err) {
         return {
@@ -73,12 +76,11 @@ const getNewReservation = async (userId, vehicleId) => {
     }
 }
 
-const editReservation = async (userId, vehicleId, data) => {
+const editReservation = async (id, data) => {
     try {
         const _data = await ReservationsModel.query()
             .patch(data)
-            .where('userId', userId)
-            .andWhere('vehicleId', vehicleId)
+            .where('id', id)
 
         return {
             error: false,

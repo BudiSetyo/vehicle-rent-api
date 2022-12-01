@@ -11,6 +11,7 @@ const addReservation = async (req, res) => {
         paymentType,
         statusPayment,
         paymentCode,
+        price,
     } = req.body
 
     const reservation = await reservationsSchema.createReservation({
@@ -19,6 +20,7 @@ const addReservation = async (req, res) => {
         quantity,
         startDate,
         endDate,
+        price,
     })
 
     if (reservation.error) {
@@ -68,9 +70,14 @@ const addReservation = async (req, res) => {
 }
 
 const getAllReservation = async (req, res) => {
-    const { userId } = req.query
+    const { userId, search, type, date } = req.query
 
-    const _data = await reservationsSchema.getAllReservation(userId)
+    const _data = await reservationsSchema.getAllReservation(
+        userId,
+        search,
+        type,
+        date
+    )
 
     if (_data.error) {
         return response(res, 400, {
@@ -87,9 +94,9 @@ const getAllReservation = async (req, res) => {
 }
 
 const deleteHistory = async (req, res) => {
-    const { reservationId, paymentId } = req.query
+    const { reservationId } = req.query
 
-    const deletePayment = await paymentsSchema.deletePayment(paymentId)
+    const deletePayment = await paymentsSchema.deletePayment(reservationId)
     const deleteReservation = await reservationsSchema.deleteReservation(
         reservationId
     )
@@ -115,12 +122,31 @@ const deleteHistory = async (req, res) => {
 }
 
 const editReservation = async (req, res) => {
-    const { userId, vehicleId } = req.query
-    const {} = req.body
+    const { reservationId } = req.query
+    const { quantity, startDate, endDate, price, paymentType } = req.body
 
-    const _data = await reservationsSchema.editReservation(userId, vehicleId)
+    const reservation = await reservationsSchema.editReservation(
+        reservationId,
+        {
+            quantity,
+            startDate,
+            endDate,
+            price,
+        }
+    )
 
-    if (_data.error) {
+    if (reservation.error) {
+        return response(res, 400, {
+            error: true,
+            message: 'Edit reservation failed',
+        })
+    }
+
+    const payment = await paymentsSchema.editPayment(reservationId, {
+        paymentType,
+    })
+
+    if (payment.error) {
         return response(res, 400, {
             error: true,
             message: 'Edit reservation failed',

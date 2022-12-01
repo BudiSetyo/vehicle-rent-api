@@ -25,6 +25,7 @@ class ReservationsModel extends Model {
 
     static get relationMappings() {
         const PaymentsModel = require('./payments')
+        const VehiclesModel = require('./vehicles')
 
         return {
             payment: {
@@ -33,6 +34,14 @@ class ReservationsModel extends Model {
                 join: {
                     from: 'reservations.id',
                     to: 'payments.reservationId',
+                },
+            },
+            vehicleReservation: {
+                relation: Model.BelongsToOneRelation,
+                modelClass: VehiclesModel,
+                join: {
+                    from: 'reservations.vehicleId',
+                    to: 'vehicles.id',
                 },
             },
         }

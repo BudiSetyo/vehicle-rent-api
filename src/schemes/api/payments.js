@@ -16,11 +16,11 @@ const createPayment = async (data) => {
     }
 }
 
-const editPayment = async (status, id) => {
+const editPayment = async (reservationId, data) => {
     try {
         const _data = await PaymentsModel.query()
-            .patch({ statusPayment: status })
-            .where({ id: id })
+            .patch(data)
+            .where('reservationId', reservationId)
 
         return {
             error: false,
@@ -52,8 +52,28 @@ const deletePayment = async (id) => {
     }
 }
 
+const getAllPayment = async () => {
+    try {
+        const _data = await PaymentsModel.query().orderBy(
+            'payments.updateAt',
+            'DESC'
+        )
+
+        return {
+            error: false,
+            data: _data,
+        }
+    } catch (err) {
+        return {
+            error: true,
+            data: err,
+        }
+    }
+}
+
 module.exports = {
     createPayment,
     editPayment,
     deletePayment,
+    getAllPayment,
 }
