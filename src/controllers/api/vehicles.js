@@ -108,7 +108,7 @@ const getAllVehicle = async (req, res) => {
 }
 
 const getVehicleById = async (req, res) => {
-    const { id } = req.body
+    const { id } = req.query
 
     const _data = await vehiclesSchema.getVehicleById(id)
 
