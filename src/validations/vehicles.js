@@ -1,7 +1,7 @@
 const Joi = require('joi')
 
 const addVehicle = {
-    body: Joi.object.keys({
+    body: Joi.object().keys({
         name: Joi.string(),
         typeId: Joi.string(),
         locationId: Joi.string(),
@@ -15,19 +15,19 @@ const addVehicle = {
 }
 
 const editImageVehicle = {
-    query: Joi.object.keys({
+    query: Joi.object().keys({
         id: Joi.string(),
     }),
-    body: Joi.object.keys({
+    body: Joi.object().keys({
         picture: Joi.string(),
     }),
 }
 
 const editVehicle = {
-    query: Joi.object.keys({
+    query: Joi.object().keys({
         id: Joi.string(),
     }),
-    body: Joi.object.keys({
+    body: Joi.object().keys({
         name: Joi.string(),
         typeId: Joi.string(),
         locationId: Joi.string(),
@@ -39,7 +39,7 @@ const editVehicle = {
 }
 
 const getAllVehicle = {
-    query: Joi.object.keys({
+    query: Joi.object().keys({
         search: Joi.string(),
         type: Joi.string(),
         location: Joi.string(),
@@ -49,7 +49,7 @@ const getAllVehicle = {
 }
 
 const getVehicleById = {
-    query: Joi.object.keys({
+    query: Joi.object().keys({
         id: Joi.string(),
     }),
 }

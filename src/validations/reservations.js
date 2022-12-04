@@ -1,11 +1,11 @@
 const Joi = require('joi')
 
 const addReservation = {
-    query: Joi.object.keys({
+    query: Joi.object().keys({
         userId: Joi.string(),
         vehicleId: Joi.string(),
     }),
-    body: Joi.object.keys({
+    body: Joi.object().keys({
         quantity: Joi.number(),
         startDate: Joi.string(),
         endDate: Joi.string(),
@@ -17,7 +17,7 @@ const addReservation = {
 }
 
 const getAllReservation = {
-    query: Joi.object.keys({
+    query: Joi.object().keys({
         userId: Joi.string(),
         search: Joi.string(),
         type: Joi.string(),
@@ -26,16 +26,16 @@ const getAllReservation = {
 }
 
 const deleteHistory = {
-    query: Joi.object.keys({
+    query: Joi.object().keys({
         reservationId: Joi.string(),
     }),
 }
 
 const editReservation = {
-    query: Joi.object.keys({
+    query: Joi.object().keys({
         reservationId: Joi.string(),
     }),
-    body: Joi.object.keys({
+    body: Joi.object().keys({
         quantity: Joi.number(),
         startDate: Joi.string(),
         endDate: Joi.string(),
