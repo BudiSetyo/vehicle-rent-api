@@ -17,7 +17,16 @@ const verifyToken = (token) => {
     }
 }
 
+const generateEmailToken = (data) => {
+    try {
+        return jwt.sign(data, JWT.secretKey, { expiresIn: '5m' })
+    } catch (err) {
+        return err
+    }
+}
+
 module.exports = {
     generateToken,
     verifyToken,
+    generateEmailToken,
 }

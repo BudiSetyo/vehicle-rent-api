@@ -21,6 +21,17 @@ const config = {
         isuer: env.ISUER,
         expire: env.EXPIRE,
     },
+    email: {
+        smtp: {
+            host: env.SMTP_HOST,
+            port: env.SMTP_PORT,
+            auth: {
+                user: env.SMTP_USERNAME,
+                pass: env.SMTP_PASSWORD,
+            },
+        },
+        from: env.EMAIL_FROM,
+    },
 }
 
 module.exports = config
