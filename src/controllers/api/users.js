@@ -50,7 +50,28 @@ const editPassword = async (req, res) => {
     })
 }
 
+const getUserProfile = async (req, res) => {
+    const { userId } = req.params
+
+    const _data = await usersSchema.getUserProfile(userId)
+    // console.log(_data)
+
+    if (_data.error) {
+        return response(res, 400, {
+            error: true,
+            message: 'Get user profile failed',
+        })
+    }
+
+    return response(res, 200, {
+        error: false,
+        message: 'Get user profile success',
+        data: _data.data,
+    })
+}
+
 module.exports = {
     editProfile,
     editPassword,
+    getUserProfile,
 }

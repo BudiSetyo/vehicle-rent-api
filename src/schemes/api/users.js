@@ -58,7 +58,28 @@ const checkPassword = async (id, password) => {
 
 const editUser = async (data, id) => {
     try {
-        const _data = await UsersModel.query().patch(data).findById(id)
+        const _data = await UsersModel.query().patch(data).where({ id: id })
+
+        return {
+            error: false,
+            data: _data,
+        }
+    } catch (err) {
+        return {
+            error: true,
+            data: err,
+        }
+    }
+}
+
+const getUserProfile = async (id) => {
+    try {
+        const _data = await UsersModel.query().findById(id)
+        // .leftJoinRelated('[location, roles]')
+        // .select('users.*')
+        // .withGraphFetched('location')
+        // .withGraphFetched('roles')
+        // .where('users.id', id)
 
         return {
             error: false,
@@ -77,4 +98,5 @@ module.exports = {
     getUserById,
     editUser,
     checkPassword,
+    getUserProfile,
 }

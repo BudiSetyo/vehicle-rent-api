@@ -52,7 +52,29 @@ class UsersModel extends mixin(Model, [
         }
     }
 
-    static get relationMappings() {}
+    static get relationMappings() {
+        const LocationsModel = require('./location')
+        const RolesModel = require('./roles')
+
+        return {
+            location: {
+                relation: Model.BelongsToOneRelation,
+                modelClass: LocationsModel,
+                join: {
+                    from: 'users.locationId',
+                    to: 'location.id',
+                },
+            },
+            roles: {
+                relation: Model.BelongsToOneRelation,
+                modelClass: RolesModel,
+                join: {
+                    from: 'users.roleId',
+                    to: 'roles.id',
+                },
+            },
+        }
+    }
 }
 
 module.exports = UsersModel

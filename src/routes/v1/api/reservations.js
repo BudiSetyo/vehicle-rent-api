@@ -1,7 +1,7 @@
 const express = require('express')
 const reservationsController = require('../../../controllers/api/reservations')
 const authMiddleware = require('../../../middlewares/auth')
-const validate = require('../../middlewares/validate')
+const validate = require('../../../middlewares/validate')
 const validation = require('../../../validations/reservations')
 
 const router = express.Router()

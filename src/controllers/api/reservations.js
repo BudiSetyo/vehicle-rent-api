@@ -89,7 +89,7 @@ const getAllReservation = async (req, res) => {
     return response(res, 200, {
         error: false,
         message: 'Get all reservation success',
-        data: _data,
+        data: _data.data,
     })
 }
 

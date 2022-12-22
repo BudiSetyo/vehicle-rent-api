@@ -6,6 +6,12 @@ const authMiddleware = require('../../../middlewares/auth')
 
 const router = express.Router()
 
+router.get(
+    '/:userId',
+    authMiddleware.authentication,
+    usersController.getUserProfile
+)
+
 router.patch(
     '/edit-profile',
     authMiddleware.authentication,

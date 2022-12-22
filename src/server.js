@@ -23,7 +23,7 @@ app.use(express.urlencoded({ extended: true }))
 
 // enable cors
 app.use(cors())
-app.options('*', cors())
+// app.options('*', cors())
 
 // logger
 app.use(morgan('dev'))
