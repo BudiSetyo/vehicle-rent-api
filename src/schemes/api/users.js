@@ -74,12 +74,21 @@ const editUser = async (data, id) => {
 
 const getUserProfile = async (id) => {
     try {
-        const _data = await UsersModel.query().findById(id)
-        // .leftJoinRelated('[location, roles]')
-        // .select('users.*')
-        // .withGraphFetched('location')
-        // .withGraphFetched('roles')
-        // .where('users.id', id)
+        const _data = await UsersModel.query()
+            .leftJoinRelated('[location, roles]')
+            .select(
+                'users.id',
+                'users.email',
+                'users.name',
+                'users.gender',
+                'users.address',
+                'users.phoneNumber',
+                'users.birth',
+                'users.profileImage'
+            )
+            .withGraphFetched('location')
+            .withGraphFetched('roles')
+            .where('users.id', id)
 
         return {
             error: false,

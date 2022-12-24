@@ -14,20 +14,14 @@ router
         validate(validation.addVehicle),
         vehiclesController.addVehicle
     )
-    .get(
-        authMiddleware.authentication,
-        validate(validation.getAllVehicle),
-        vehiclesController.getAllVehicle
-    )
+    .get(validate(validation.getAllVehicle), vehiclesController.getAllVehicle)
     .patch(
         authMiddleware.authentication,
         validate(validation.editVehicle),
         vehiclesController.editVehicle
     )
 
-router
-    .route('/detail')
-    .get(authMiddleware.authentication, vehiclesController.getVehicleById)
+router.route('/detail').get(vehiclesController.getVehicleById)
 
 router.patch(
     '/image',

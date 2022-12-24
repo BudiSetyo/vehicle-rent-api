@@ -23,10 +23,6 @@ class UsersModel extends mixin(Model, [
         return ['password']
     }
 
-    $formatJson(json) {
-        json = super.$formatJson(json)
-    }
-
     static get jsonSchema() {
         return {
             type: 'object',

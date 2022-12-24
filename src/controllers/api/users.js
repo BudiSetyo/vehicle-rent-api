@@ -51,22 +51,20 @@ const editPassword = async (req, res) => {
 }
 
 const getUserProfile = async (req, res) => {
-    const { userId } = req.params
+    const { id } = req.credential
 
-    const _data = await usersSchema.getUserProfile(userId)
-    // console.log(_data)
+    const profile = await usersSchema.getUserProfile(id)
 
-    if (_data.error) {
+    if (profile.error) {
         return response(res, 400, {
             error: true,
             message: 'Get user profile failed',
         })
     }
 
-    return response(res, 200, {
-        error: false,
-        message: 'Get user profile success',
-        data: _data.data,
+    return res.status(200).json({
+        message: 'success',
+        data: profile.data,
     })
 }
 
