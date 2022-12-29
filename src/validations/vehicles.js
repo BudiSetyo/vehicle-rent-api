@@ -16,7 +16,7 @@ const addVehicle = {
 
 const editImageVehicle = {
     query: Joi.object().keys({
-        id: Joi.string(),
+        vehicleId: Joi.string(),
     }),
     body: Joi.object().keys({
         picture: Joi.string(),
@@ -25,7 +25,7 @@ const editImageVehicle = {
 
 const editVehicle = {
     query: Joi.object().keys({
-        id: Joi.string(),
+        vehicleId: Joi.string(),
     }),
     body: Joi.object().keys({
         name: Joi.string(),
@@ -43,14 +43,20 @@ const getAllVehicle = {
         search: Joi.string(),
         type: Joi.string(),
         location: Joi.string(),
+        popular: Joi.boolean(),
         page: Joi.number(),
         row: Joi.number,
     }),
 }
 
 const getVehicleById = {
+    params: Joi.object().keys({
+        vehicleId: Joi.string(),
+    }),
+}
+const deleteVehicle = {
     query: Joi.object().keys({
-        id: Joi.string(),
+        vehicleId: Joi.string(),
     }),
 }
 
@@ -60,4 +66,5 @@ module.exports = {
     editVehicle,
     getAllVehicle,
     getVehicleById,
+    deleteVehicle,
 }

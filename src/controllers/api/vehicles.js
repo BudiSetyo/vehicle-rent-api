@@ -31,7 +31,7 @@ const addVehicle = async (req, res) => {
 
 const editImageVehicle = async (req, res) => {
     const { file } = req.file
-    const { id } = req.query
+    const { vehicleId } = req.query
 
     if (!file.path) {
         return response(res, 400, {
@@ -46,7 +46,7 @@ const editImageVehicle = async (req, res) => {
         {
             picture: upload.secure.url,
         },
-        id
+        vehicleId
     )
 
     if (_data.error) {
@@ -63,10 +63,10 @@ const editImageVehicle = async (req, res) => {
 }
 
 const editVehicle = async (req, res) => {
-    const { id } = req.query
+    const { vehicleId } = req.query
     const data = req.body
 
-    const _data = await vehiclesSchema.editVehicle(data, id)
+    const _data = await vehiclesSchema.editVehicle(data, vehicleId)
 
     if (_data.error) {
         return response(res, 400, {
@@ -108,9 +108,9 @@ const getAllVehicle = async (req, res) => {
 }
 
 const getVehicleById = async (req, res) => {
-    const { id } = req.query
+    const { vehicleId } = req.params
 
-    const _data = await vehiclesSchema.getVehicleById(id)
+    const _data = await vehiclesSchema.getVehicleById(vehicleId)
 
     if (_data.error) {
         return response(res, 400, {
@@ -122,7 +122,42 @@ const getVehicleById = async (req, res) => {
     return response(res, 200, {
         error: false,
         message: 'Get vehicle success',
-        data: _data,
+        data: _data.data,
+    })
+}
+
+const deleteVehicle = async (req, res) => {
+    const { vehicleId } = req.query
+
+    const _data = await vehiclesSchema.deleteVehicle(vehicleId)
+
+    if (_data.error) {
+        return response(res, 400, {
+            error: true,
+            message: 'Delete vehicle failed',
+        })
+    }
+
+    return response(res, 200, {
+        error: false,
+        message: 'Delete vehicle success',
+    })
+}
+
+const getAllVehicleType = async (req, res) => {
+    const _data = await vehiclesSchema.getAllVehicleType()
+
+    if (_data.error) {
+        return response(res, 400, {
+            error: true,
+            message: 'Get vehicle type failed',
+        })
+    }
+
+    return response(res, 200, {
+        error: false,
+        message: 'Get vehicle type success',
+        data: _data.data,
     })
 }
 
@@ -132,4 +167,6 @@ module.exports = {
     getVehicleById,
     editImageVehicle,
     editVehicle,
+    deleteVehicle,
+    getAllVehicleType,
 }

@@ -20,8 +20,11 @@ router
         validate(validation.editVehicle),
         vehiclesController.editVehicle
     )
-
-router.route('/detail').get(vehiclesController.getVehicleById)
+    .delete(
+        authMiddleware.authentication,
+        validate(validation.deleteVehicle),
+        vehiclesController.deleteVehicle
+    )
 
 router.patch(
     '/image',
@@ -29,5 +32,9 @@ router.patch(
     multer.single('image'),
     vehiclesController.editImageVehicle
 )
+
+router.get('/detail/:vehicleId', vehiclesController.getVehicleById)
+
+router.route('/type').get(vehiclesController.getAllVehicleType)
 
 module.exports = router
