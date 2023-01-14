@@ -1,9 +1,11 @@
 const reservationsSchema = require('../../schemes/api/reservations')
 const paymentsSchema = require('../../schemes/api/payments')
+const vehicleSchema = require('../../schemes/api/vehicles')
 const { response } = require('../../utils/response')
 
 const addReservation = async (req, res) => {
-    const { userId, vehicleId } = req.query
+    const userId = req.credential.id
+    const { vehicleId } = req.query
     const {
         quantity,
         startDate,
@@ -30,27 +32,27 @@ const addReservation = async (req, res) => {
         })
     }
 
-    const getNewReservation = await reservationsSchema.getNewReservation(
-        userId,
-        vehicleId
-    )
+    // const getNewReservation = await reservationsSchema.getNewReservation(
+    //     userId,
+    //     vehicleId
+    // )
 
-    if (getNewReservation.error) {
-        return response(res, 400, {
-            error: true,
-            message: 'Get reservation failed',
-        })
-    }
+    // if (getNewReservation.error) {
+    //     return response(res, 400, {
+    //         error: true,
+    //         message: 'Get reservation failed',
+    //     })
+    // }
 
-    if (getNewReservation.data === undefined) {
-        return response(res, 400, {
-            error: true,
-            message: 'Get reservation failed',
-        })
-    }
+    // if (getNewReservation.data === undefined) {
+    //     return response(res, 400, {
+    //         error: true,
+    //         message: 'Get reservation failed',
+    //     })
+    // }
 
     const payment = await paymentsSchema.createPayment({
-        reservationId: getNewReservation.data.id,
+        reservationId: reservation.data.id,
         paymentType,
         statusPayment,
         paymentCode,
@@ -66,11 +68,13 @@ const addReservation = async (req, res) => {
     return response(res, 200, {
         error: false,
         message: 'Add reservation success',
+        data: reservation.data,
     })
 }
 
 const getAllReservation = async (req, res) => {
-    const { userId, search, type, date } = req.query
+    const userId = req.credential.id
+    const { search, type, date } = req.query
 
     const _data = await reservationsSchema.getAllReservation(
         userId,
@@ -159,9 +163,42 @@ const editReservation = async (req, res) => {
     })
 }
 
+const getReservationDetail = async (req, res) => {
+    const { reservationId } = req.params
+
+    const _reservation = await reservationsSchema.getReservationDetail(
+        reservationId
+    )
+
+    if (_reservation.error) {
+        return response(res, 400, {
+            error: true,
+            message: 'Get Detail Reservation Failed',
+        })
+    }
+
+    const _vehicle = await vehicleSchema.getVehicleById(
+        _reservation.data[0].vehicleId
+    )
+
+    if (_vehicle.error) {
+        return response(res, 400, {
+            error: true,
+            message: 'Get Detail Reservation Failed',
+        })
+    }
+
+    return response(res, 200, {
+        error: false,
+        message: 'Get Detail Reservation Success',
+        data: { reservation: _reservation.data[0], vehicle: _vehicle.data[0] },
+    })
+}
+
 module.exports = {
     addReservation,
     getAllReservation,
     deleteHistory,
     editReservation,
+    getReservationDetail,
 }

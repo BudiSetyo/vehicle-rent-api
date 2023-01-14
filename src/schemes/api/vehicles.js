@@ -205,13 +205,33 @@ const getAllVehicle = async (search, type, location, popular, page, row) => {
 
 const getVehicleById = async (id) => {
     try {
-        const _data = await VehiclesModel.query().findById(id)
+        const _data = await VehiclesModel.query()
+            .leftJoinRelated('[vehicleType, vehicleLocation, vehicleStatus]')
+            .select(
+                'vehicles.id',
+                'vehicles.name',
+                'vehicles.typeId',
+                'vehicleType.name as type',
+                'vehicles.locationId',
+                'vehicleLocation.name as location',
+                'vehicles.isPopular',
+                'vehicles.description',
+                'vehicles.price',
+                'vehicles.statusId',
+                'vehicleStatus.name as status',
+                'vehicles.picture',
+                'vehicles.stock',
+                'vehicles.createdAt',
+                'vehicles.updatedAt'
+            )
+            .where('vehicles.id', id)
 
         return {
             error: false,
             data: _data,
         }
     } catch (err) {
+        console.log(err)
         return {
             error: true,
             data: err,

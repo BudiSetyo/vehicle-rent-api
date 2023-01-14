@@ -20,13 +20,14 @@ const editPayment = async (reservationId, data) => {
     try {
         const _data = await PaymentsModel.query()
             .patch(data)
-            .where('reservationId', reservationId)
+            .where('payments.reservationId', reservationId)
 
         return {
             error: false,
             data: _data,
         }
     } catch (err) {
+        console.log(err)
         return {
             error: true,
             data: err,

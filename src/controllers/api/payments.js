@@ -26,10 +26,12 @@ const addPayment = async (req, res) => {
 }
 
 const editPayment = async (req, res) => {
-    const { paymentId } = req.query
+    const { reservationId } = req.query
     const { statusPayment } = req.body
 
-    const _data = await paymentsSchema.editPayment(statusPayment, paymentId)
+    const _data = await paymentsSchema.editPayment(reservationId, {
+        statusPayment,
+    })
 
     if (_data.error) {
         return response(res, 400, {

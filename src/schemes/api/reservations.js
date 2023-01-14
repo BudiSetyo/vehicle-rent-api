@@ -1,8 +1,9 @@
 const ReservationsModel = require('../../models/api/reservations')
+// const VehiclesModel = require('../../models/api/vehicles')
 
 const createReservation = async (data) => {
     try {
-        const _data = await ReservationsModel.query().insert(data)
+        const _data = await ReservationsModel.query().insertAndFetch(data)
 
         return {
             error: false,
@@ -94,10 +95,34 @@ const editReservation = async (id, data) => {
     }
 }
 
+const getReservationDetail = async (id) => {
+    try {
+        const _data = await ReservationsModel.query()
+            .leftJoinRelated('[payment, userReservation as user]')
+            .select('reservations.*')
+            .select('user.name as userName', 'user.email', 'user.phoneNumber')
+            .withGraphFetched('payment')
+            .where('reservations.id', id)
+            .andWhere('payment.reservationId', id)
+
+        return {
+            error: false,
+            data: _data,
+        }
+    } catch (err) {
+        // console.log(err)
+        return {
+            error: true,
+            data: err,
+        }
+    }
+}
+
 module.exports = {
     createReservation,
     getAllReservation,
     deleteReservation,
     getNewReservation,
     editReservation,
+    getReservationDetail,
 }

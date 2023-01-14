@@ -13,7 +13,7 @@ const addPayment = {
 
 const editPayment = {
     query: Joi.object().keys({
-        paymentId: Joi.string(),
+        reservationId: Joi.string(),
     }),
     body: Joi.object().keys({
         statusPayment: Joi.boolean(),

@@ -24,4 +24,9 @@ router
         reservationsController.getAllReservation
     )
 
+router.get(
+    '/detail/:reservationId',
+    reservationsController.getReservationDetail
+)
+
 module.exports = router

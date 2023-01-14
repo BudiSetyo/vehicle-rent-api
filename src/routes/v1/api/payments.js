@@ -13,10 +13,6 @@ router
         validate(validation.addPayment),
         paymentsController.addPayment
     )
-    .patch(
-        authMiddleware.authentication,
-        validate(validation.editPayment),
-        paymentsController.editPayment
-    )
+    .patch(authMiddleware.authentication, paymentsController.editPayment)
 
 module.exports = router
