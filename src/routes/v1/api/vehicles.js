@@ -26,12 +26,18 @@ router
         vehiclesController.deleteVehicle
     )
 
-router.patch(
-    '/image',
-    authMiddleware.authentication,
-    multer.single('image'),
-    vehiclesController.editImageVehicle
-)
+router
+    .route('/image')
+    .post(
+        authMiddleware.authentication,
+        multer.single('image'),
+        vehiclesController.addImageVehicle
+    )
+    .patch(
+        authMiddleware.authentication,
+        multer.single('image'),
+        vehiclesController.editImageVehicle
+    )
 
 router.get('/detail/:vehicleId', vehiclesController.getVehicleById)
 

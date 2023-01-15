@@ -5,9 +5,11 @@ const addVehicle = {
         name: Joi.string(),
         typeId: Joi.string(),
         locationId: Joi.string(),
+        capacity: Joi.number(),
         isPopular: Joi.boolean(),
         description: Joi.string(),
         price: Joi.number(),
+        prePayment: Joi.number(),
         statusId: Joi.string(),
         picture: Joi.string(),
         stock: Joi.number(),
@@ -45,7 +47,7 @@ const getAllVehicle = {
         location: Joi.string(),
         popular: Joi.boolean(),
         page: Joi.number(),
-        row: Joi.number,
+        row: Joi.number(),
     }),
 }
 

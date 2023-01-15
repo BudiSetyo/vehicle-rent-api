@@ -29,8 +29,27 @@ const addVehicle = async (req, res) => {
     })
 }
 
+const addImageVehicle = async (req, res) => {
+    const { file } = req
+
+    if (!file?.path) {
+        return response(res, 400, {
+            error: true,
+            message: 'Image file not found',
+        })
+    }
+
+    const upload = await cloudinary.uploader.upload(file.path)
+
+    return response(res, 200, {
+        error: false,
+        message: 'Add image vehicle success',
+        data: upload,
+    })
+}
+
 const editImageVehicle = async (req, res) => {
-    const { file } = req.file
+    const { file } = req
     const { vehicleId } = req.query
 
     if (!file.path) {
@@ -165,6 +184,7 @@ module.exports = {
     addVehicle,
     getAllVehicle,
     getVehicleById,
+    addImageVehicle,
     editImageVehicle,
     editVehicle,
     deleteVehicle,
