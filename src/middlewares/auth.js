@@ -36,6 +36,39 @@ const authentication = (req, res, next) => {
     return next()
 }
 
+const checkToken = (req, res) => {
+    const token = req.headers.authorization?.split(' ')[1]
+
+    if (!token) {
+        return response(res, 400, {
+            error: true,
+            message: 'No token provided!',
+        })
+    }
+
+    const verify = tokenServices.verifyToken(token)
+
+    if (verify.name === 'JsonWebTokenError') {
+        return response(res, 400, {
+            error: true,
+            message: verify.message,
+        })
+    }
+
+    if (verify.name === 'TokenExpiredError') {
+        return response(res, 400, {
+            error: true,
+            message: 'You have to login!',
+        })
+    }
+
+    return response(res, 200, {
+        error: false,
+        message: 'Token verified',
+    })
+}
+
 module.exports = {
     authentication,
+    checkToken,
 }

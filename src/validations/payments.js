@@ -6,7 +6,8 @@ const addPayment = {
     }),
     body: Joi.object().keys({
         paymentType: Joi.string(),
-        statusPayment: Joi.boolean(),
+        status: Joi.string(),
+        isCompleted: Joi.boolean(),
         paymentCode: Joi.string(),
     }),
 }

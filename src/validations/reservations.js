@@ -10,9 +10,11 @@ const addReservation = {
         startDate: Joi.string(),
         endDate: Joi.string(),
         paymentType: Joi.string(),
-        statusPayment: Joi.boolean(),
+        status: Joi.string(),
+        isCompleted: Joi.boolean(),
         paymentCode: Joi.string(),
-        price: Joi.number(),
+        totalPrice: Joi.number(),
+        days: Joi.number(),
     }),
 }
 

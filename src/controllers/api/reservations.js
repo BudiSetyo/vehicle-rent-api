@@ -11,9 +11,11 @@ const addReservation = async (req, res) => {
         startDate,
         endDate,
         paymentType,
-        statusPayment,
+        status,
+        isCompleted,
         paymentCode,
-        price,
+        totalPrice,
+        days,
     } = req.body
 
     const reservation = await reservationsSchema.createReservation({
@@ -22,7 +24,8 @@ const addReservation = async (req, res) => {
         quantity,
         startDate,
         endDate,
-        price,
+        totalPrice,
+        days,
     })
 
     if (reservation.error) {
@@ -32,29 +35,11 @@ const addReservation = async (req, res) => {
         })
     }
 
-    // const getNewReservation = await reservationsSchema.getNewReservation(
-    //     userId,
-    //     vehicleId
-    // )
-
-    // if (getNewReservation.error) {
-    //     return response(res, 400, {
-    //         error: true,
-    //         message: 'Get reservation failed',
-    //     })
-    // }
-
-    // if (getNewReservation.data === undefined) {
-    //     return response(res, 400, {
-    //         error: true,
-    //         message: 'Get reservation failed',
-    //     })
-    // }
-
     const payment = await paymentsSchema.createPayment({
         reservationId: reservation.data.id,
         paymentType,
-        statusPayment,
+        status,
+        isCompleted,
         paymentCode,
     })
 

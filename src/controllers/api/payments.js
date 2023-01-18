@@ -3,12 +3,13 @@ const { response } = require('../../utils/response')
 
 const addPayment = async (req, res) => {
     const { reservationId } = req.query
-    const { paymentType, statusPayment, paymentCode } = req.body
+    const { paymentType, status, paymentCode } = req.body
 
     const _data = await paymentsSchema.createPayment({
         reservationId,
         paymentType,
-        statusPayment,
+        status,
+        isCompleted,
         paymentCode,
     })
 
@@ -27,10 +28,11 @@ const addPayment = async (req, res) => {
 
 const editPayment = async (req, res) => {
     const { reservationId } = req.query
-    const { statusPayment } = req.body
+    const { status, isCompleted } = req.body
 
     const _data = await paymentsSchema.editPayment(reservationId, {
-        statusPayment,
+        status,
+        isCompleted,
     })
 
     if (_data.error) {

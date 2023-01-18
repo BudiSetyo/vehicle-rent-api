@@ -9,6 +9,7 @@ exports.up = function (knex) {
         table.uuid('vehicleId')
         table.integer('quantity')
         table.integer('totalPrice')
+        table.integer('days')
         table.dateTime('startDate')
         table.dateTime('endDate')
         table.timestamp('createdAt').defaultTo(knex.fn.now()).notNullable()
