@@ -1,7 +1,7 @@
 const { response } = require('../utils/response')
 const tokenServices = require('../services/token')
 
-const authentication = (req, res, next) => {
+const authentication = async (req, res, next) => {
     const token = req.headers.authorization?.split(' ')[1]
 
     if (!token) {
@@ -11,7 +11,7 @@ const authentication = (req, res, next) => {
         })
     }
 
-    const verify = tokenServices.verifyToken(token)
+    const verify = await tokenServices.verifyJoseToken(token)
 
     if (verify.name === 'JsonWebTokenError') {
         return response(res, 400, {

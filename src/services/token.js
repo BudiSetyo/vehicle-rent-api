@@ -42,9 +42,18 @@ const generateJoseToken = (data) => {
     }
 }
 
+const verifyJoseToken = async (token) => {
+    try {
+        return await jwtVerify(token, new TextEncoder().encode(JWT.secretKey))
+    } catch (err) {
+        return err
+    }
+}
+
 module.exports = {
     generateToken,
     verifyToken,
     generateEmailToken,
     generateJoseToken,
+    verifyJoseToken,
 }
