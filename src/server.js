@@ -6,6 +6,7 @@ const Model = require('objection').Model
 const knexConfig = require('../knexfile')
 
 const routesAPI = require('./routes/v1/api')
+const routesCMS = require('./routes/v1/cms')
 
 const app = express()
 
@@ -30,6 +31,9 @@ app.use(morgan('dev'))
 
 // v1 api routes
 app.use('/v1', routesAPI)
+
+// v1 CMS routes
+app.use('/v1/cms', routesCMS)
 
 // test
 app.get('/', (_, res) => {

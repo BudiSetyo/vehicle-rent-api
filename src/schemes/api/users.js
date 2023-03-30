@@ -84,11 +84,31 @@ const getUserProfile = async (id) => {
                 'users.address',
                 'users.phoneNumber',
                 'users.birth',
-                'users.profileImage'
+                'users.profileImage',
+                'users.createdAt',
+                'users.updatedAt'
             )
             .withGraphFetched('location')
             .withGraphFetched('roles')
             .where('users.id', id)
+
+        return {
+            error: false,
+            data: _data,
+        }
+    } catch (err) {
+        return {
+            error: true,
+            data: err,
+        }
+    }
+}
+
+const updateAvatar = async (id, image) => {
+    try {
+        const _data = await UsersModel.query()
+            .patch({ profileImage: image })
+            .findById(id)
 
         return {
             error: false,
@@ -108,4 +128,5 @@ module.exports = {
     editUser,
     checkPassword,
     getUserProfile,
+    updateAvatar,
 }

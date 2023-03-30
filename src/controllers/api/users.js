@@ -1,11 +1,14 @@
 const usersSchema = require('../../schemes/api/users')
 const { response } = require('../../utils/response')
+const cloudinary = require('../../services/coudinary.config')
 
 const editProfile = async (req, res) => {
     const data = req.body
     const userId = req.credential.id
 
     const edit = await usersSchema.editUser(data, userId)
+
+    // console.log(edit)
 
     if (edit.error) {
         return response(res, 400, {
@@ -68,8 +71,38 @@ const getUserProfile = async (req, res) => {
     })
 }
 
+const updateAvatar = async (req, res) => {
+    const { file } = req
+    const { id } = req.credential
+
+    if (!file?.path) {
+        return response(res, 400, {
+            error: true,
+            message: 'Image file not found',
+        })
+    }
+
+    const upload = await cloudinary.uploader.upload(file.path)
+
+    const _data = await usersSchema.updateAvatar(id, upload.secure_url)
+
+    if (_data.error) {
+        return response(res, 400, {
+            error: true,
+            message: 'Update avatar failed',
+        })
+    }
+
+    return response(res, 200, {
+        error: true,
+        message: 'Update avatar success',
+        image: upload.secure_url,
+    })
+}
+
 module.exports = {
     editProfile,
     editPassword,
     getUserProfile,
+    updateAvatar,
 }

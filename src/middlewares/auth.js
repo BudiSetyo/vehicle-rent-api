@@ -31,6 +31,7 @@ const authentication = (req, res, next) => {
         id: verify.id,
         email: verify.email,
         name: verify.name,
+        avatar: verify.avatar,
     }
 
     return next()

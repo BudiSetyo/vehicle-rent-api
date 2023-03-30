@@ -60,7 +60,7 @@ const getAllVehicle = async (search, type, location, popular, page, row) => {
                     'vehicles.updatedAt'
                 )
                 .orderBy('vehicles.createdAt', 'DESC')
-                .page(page || 1 - 1, row || 10)
+                .page(page - 1 || 0, row || 10)
 
             return {
                 error: false,
@@ -95,7 +95,7 @@ const getAllVehicle = async (search, type, location, popular, page, row) => {
                 )
                 .whereRaw('UPPER(vehicles.name) like ?', paramSearch)
                 .orderBy('vehicles.createdAt', 'DESC')
-                .page(page || 1 - 1, row || 10)
+                .page(page - 1 || 0, row || 10)
 
             return {
                 error: false,
@@ -129,7 +129,7 @@ const getAllVehicle = async (search, type, location, popular, page, row) => {
                 )
                 .where('vehicles.typeId', '=', type)
                 .orderBy('vehicles.createdAt', 'DESC')
-                .page(page || 1 - 1, row || 10)
+                .page(page - 1 || 0, row || 10)
 
             return {
                 error: false,
@@ -163,7 +163,7 @@ const getAllVehicle = async (search, type, location, popular, page, row) => {
                 )
                 .where('vehicle.locationId', location)
                 .orderBy('vehicles.createdAt', 'DESC')
-                .page(page || 1 - 1, row || 10)
+                .page(page - 1 || 0, row || 10)
 
             return {
                 error: false,

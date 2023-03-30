@@ -52,6 +52,7 @@ const login = async (req, res) => {
         id: _data.data.id,
         email: _data.data.email,
         name: _data.data.name,
+        avatar: _data.data.profileImage,
     }
 
     const token = generateToken(tokenData)
