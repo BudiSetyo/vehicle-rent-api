@@ -39,7 +39,7 @@ const editAdmin = async (req, res) => {
 }
 
 const deleteAdmin = async (req, res) => {
-    const userId = req.params
+    const { userId } = req.params
 
     const _data = await adminSchema.deleteAdmin(userId)
 

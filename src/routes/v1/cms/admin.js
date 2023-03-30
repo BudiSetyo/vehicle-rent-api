@@ -12,7 +12,11 @@ router.post(
 
 router.patch('/', authMiddleware.authentication, adminController.editAdmin)
 
-router.delete('/', authMiddleware.authentication, adminController.deleteAdmin)
+router.delete(
+    '/:userId',
+    authMiddleware.authentication,
+    adminController.deleteAdmin
+)
 
 router.get('/', authMiddleware.authentication, adminController.getAllAdmin)
 
