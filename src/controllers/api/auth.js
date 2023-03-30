@@ -55,13 +55,13 @@ const login = async (req, res) => {
         avatar: _data.data.profileImage,
     }
 
-    const token = generateToken(tokenData)
+    const token = await generateToken(tokenData)
 
     return response(res, 200, {
         error: false,
         message: 'Login success',
         data: tokenData,
-        token,
+        token: token,
     })
 }
 
