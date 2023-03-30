@@ -37,7 +37,7 @@ const authentication = async (req, res, next) => {
     return next()
 }
 
-const checkToken = (req, res) => {
+const checkToken = async (req, res) => {
     const token = req.headers.authorization?.split(' ')[1]
 
     if (!token) {
@@ -47,7 +47,7 @@ const checkToken = (req, res) => {
         })
     }
 
-    const verify = tokenServices.verifyToken(token)
+    const verify = await tokenServices.verifyJoseToken(token)
 
     if (verify.name === 'JsonWebTokenError') {
         return response(res, 400, {

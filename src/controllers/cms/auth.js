@@ -1,7 +1,7 @@
 const authSchemaCms = require('../../schemes/cms/auth')
 const adminSchema = require('../../schemes/cms/admin')
 const { response } = require('../../utils/response')
-const { generateToken } = require('../../services/token')
+const { generateToken, generateJoseToken } = require('../../services/token')
 
 const loginCms = async (req, res) => {
     const { email, password } = req.body
@@ -28,7 +28,7 @@ const loginCms = async (req, res) => {
         avatar: _data.data.profileImage,
     }
 
-    const token = generateToken(tokenData)
+    const token = await generateJoseToken(tokenData)
 
     return response(res, 200, {
         error: false,
