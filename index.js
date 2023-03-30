@@ -7,5 +7,3 @@ const server = http.createServer(App)
 server.listen(process.env.PORT, () => {
     console.log('Server Running at Port', process.env.PORT)
 })
-
-module.exports = server
