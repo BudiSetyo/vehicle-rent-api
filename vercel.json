@@ -3,7 +3,7 @@
     "builds": [
         {
             "src": "index.js",
-            "use": "yarn start"
+            "use": "@vercel/node"
         }
     ]
 }
