@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
 const { jwt: JWT } = require('../configs/config')
+const { SignJWT, jwtVerify } = require('jose')
 
 const generateToken = (data) => {
     try {
@@ -25,8 +26,25 @@ const generateEmailToken = (data) => {
     }
 }
 
+const generateJoseToken = (data) => {
+    try {
+        const iat = Math.floor(Date.now() / 1000)
+        const exp = iat + 60 * 60 * 24 // one day
+
+        return new SignJWT({ ...data })
+            .setProtectedHeader({ alg: 'HS256', typ: 'JWT' })
+            .setExpirationTime(exp)
+            .setIssuedAt(iat)
+            .setNotBefore(iat)
+            .sign(new TextEncoder().encode(JWT.secretKey))
+    } catch (err) {
+        return err
+    }
+}
+
 module.exports = {
     generateToken,
     verifyToken,
     generateEmailToken,
+    generateJoseToken,
 }

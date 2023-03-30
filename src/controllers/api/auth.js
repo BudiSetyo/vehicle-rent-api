@@ -1,7 +1,7 @@
 const authSchema = require('../../schemes/api/auth')
 const usersSchema = require('../../schemes/api/users')
 const { response } = require('../../utils/response')
-const { generateToken } = require('../../services/token')
+const { generateToken, generateJoseToken } = require('../../services/token')
 
 const register = async (req, res) => {
     const { email, name, password } = req.body
@@ -55,7 +55,8 @@ const login = async (req, res) => {
         avatar: _data.data.profileImage,
     }
 
-    const token = await generateToken(tokenData)
+    // const token = await generateToken(tokenData)
+    const token = await generateJoseToken(tokenData)
 
     return response(res, 200, {
         error: false,
