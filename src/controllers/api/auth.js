@@ -62,7 +62,7 @@ const login = async (req, res) => {
         error: false,
         message: 'Login success',
         data: tokenData,
-        token: token,
+        token,
     })
 }
 

@@ -33,6 +33,7 @@ const getAllReservation = async (userId, search, type, date) => {
             }
         }
     } catch (err) {
+        console.log(err)
         return {
             error: true,
             data: err,

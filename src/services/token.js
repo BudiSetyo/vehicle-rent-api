@@ -44,7 +44,12 @@ const generateJoseToken = (data) => {
 
 const verifyJoseToken = async (token) => {
     try {
-        return await jwtVerify(token, new TextEncoder().encode(JWT.secretKey))
+        const { payload } = await jwtVerify(
+            token,
+            new TextEncoder().encode(JWT.secretKey)
+        )
+        console.log(payload)
+        return payload
     } catch (err) {
         return err
     }

@@ -34,13 +34,14 @@ const editAdmin = async (data, id) => {
 
 const deleteAdmin = async (id) => {
     try {
-        const _data = await AdminModel.query().deleteById(id)
+        const _data = await AdminModel.query().delete().where('admin.id', id)
 
         return {
             error: false,
             data: _data,
         }
     } catch (err) {
+        console.log(err)
         return {
             error: true,
             data: err,

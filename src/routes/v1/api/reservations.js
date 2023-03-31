@@ -20,7 +20,6 @@ router
     )
     .get(
         authMiddleware.authentication,
-        validate(validation.getAllReservation),
         reservationsController.getAllReservation
     )
 
