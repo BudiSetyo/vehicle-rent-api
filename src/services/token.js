@@ -48,7 +48,6 @@ const verifyJoseToken = async (token) => {
             token,
             new TextEncoder().encode(JWT.secretKey)
         )
-        console.log(payload)
         return payload
     } catch (err) {
         return err
