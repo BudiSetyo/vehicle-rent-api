@@ -12,7 +12,7 @@ const authentication = async (req, res, next) => {
     }
 
     const verify = await tokenServices.verifyJoseToken(token)
-    // console.log(verify)
+    console.log(verify)
 
     if (verify.name === 'JsonWebTokenError') {
         return response(res, 400, {
@@ -49,6 +49,8 @@ const checkToken = async (req, res) => {
     }
 
     const verify = await tokenServices.verifyJoseToken(token)
+
+    console.log(verify)
 
     if (verify.name === 'JsonWebTokenError') {
         return response(res, 400, {
