@@ -197,7 +197,7 @@ const getAllVehicle = async (search, type, location, popular, page, row) => {
                 )
                 .where('vehicles.isPopular', true)
                 .orderBy('vehicles.createdAt', 'DESC')
-                .page(page || 1 - 1, row || 10)
+                .page(page - 1 || 0, row || 10)
 
             return {
                 error: false,
