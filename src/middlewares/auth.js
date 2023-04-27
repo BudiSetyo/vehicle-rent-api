@@ -12,16 +12,16 @@ const authentication = async (req, res, next) => {
     }
 
     const verify = await tokenServices.verifyJoseToken(token)
-    console.log(verify)
+    // console.log(verify)
 
-    if (verify.name === 'JsonWebTokenError') {
+    if (verify.code?.split('_')[0] === 'ERR') {
         return response(res, 400, {
             error: true,
             message: verify.message,
         })
     }
 
-    if (verify.name === 'TokenExpiredError') {
+    if (verify.code === 'ERR_JWT_EXPIRED') {
         return response(res, 400, {
             error: true,
             message: 'You have to login!',
@@ -49,17 +49,16 @@ const checkToken = async (req, res) => {
     }
 
     const verify = await tokenServices.verifyJoseToken(token)
+    // console.log(verify)
 
-    console.log(verify)
-
-    if (verify.name === 'JsonWebTokenError') {
+    if (verify.code?.split('_')[0] === 'ERR') {
         return response(res, 400, {
             error: true,
             message: verify.message,
         })
     }
 
-    if (verify.name === 'TokenExpiredError') {
+    if (verify.code === 'ERR_JWT_EXPIRED') {
         return response(res, 400, {
             error: true,
             message: 'You have to login!',

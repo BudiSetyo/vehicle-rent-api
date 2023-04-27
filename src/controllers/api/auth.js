@@ -1,7 +1,7 @@
 const authSchema = require('../../schemes/api/auth')
 const usersSchema = require('../../schemes/api/users')
 const { response } = require('../../utils/response')
-const { generateToken, generateJoseToken } = require('../../services/token')
+const { generateJoseToken } = require('../../services/token')
 
 const register = async (req, res) => {
     const { email, name, password } = req.body
