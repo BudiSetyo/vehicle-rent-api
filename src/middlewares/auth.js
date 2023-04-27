@@ -12,7 +12,8 @@ const authentication = async (req, res, next) => {
     }
 
     const verify = await tokenServices.verifyJoseToken(token)
-    // console.log(verify)
+
+    const { payload } = verify
 
     if (verify.code?.split('_')[0] === 'ERR') {
         return response(res, 400, {
@@ -29,10 +30,10 @@ const authentication = async (req, res, next) => {
     }
 
     req.credential = {
-        id: verify.id,
-        email: verify.email,
-        name: verify.name,
-        avatar: verify.avatar,
+        id: payload.id,
+        email: payload.email,
+        name: payload.name,
+        avatar: payload.avatar,
     }
 
     return next()
@@ -49,7 +50,6 @@ const checkToken = async (req, res) => {
     }
 
     const verify = await tokenServices.verifyJoseToken(token)
-    // console.log(verify)
 
     if (verify.code?.split('_')[0] === 'ERR') {
         return response(res, 400, {
