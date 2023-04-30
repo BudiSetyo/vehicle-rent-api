@@ -15,7 +15,7 @@ const authentication = async (req, res, next) => {
 
     const { payload } = verify
 
-    if (verify.code?.split('_')[0] === 'ERR') {
+    if (verify.code && verify.code !== 'ERR_JWT_EXPIRED') {
         return response(res, 400, {
             error: true,
             message: verify.message,
@@ -51,7 +51,7 @@ const checkToken = async (req, res) => {
 
     const verify = await tokenServices.verifyJoseToken(token)
 
-    if (verify.code?.split('_')[0] === 'ERR') {
+    if (verify.code && verify.code !== 'ERR_JWT_EXPIRED') {
         return response(res, 400, {
             error: true,
             message: verify.message,

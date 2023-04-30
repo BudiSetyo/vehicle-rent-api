@@ -7,6 +7,7 @@ const paymentsRoute = require('./payments')
 const locationRoute = require('./locations')
 const vehicleStatusRoute = require('./vehicleStatus')
 const vehicleTypeRoute = require('./vehicleType')
+const chatsRoute = require('./chats')
 
 const router = express.Router()
 
@@ -42,6 +43,10 @@ const defaultRoutes = [
     {
         path: '/vehicleType',
         route: vehicleTypeRoute,
+    },
+    {
+        path: '/chats',
+        route: chatsRoute,
     },
 ]
 
