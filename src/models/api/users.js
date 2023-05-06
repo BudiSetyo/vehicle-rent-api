@@ -51,6 +51,7 @@ class UsersModel extends mixin(Model, [
     static get relationMappings() {
         const LocationsModel = require('./location')
         const RolesModel = require('./roles')
+        const ChatsModel = require('./chats')
 
         return {
             location: {
@@ -67,6 +68,14 @@ class UsersModel extends mixin(Model, [
                 join: {
                     from: 'users.roleId',
                     to: 'roles.id',
+                },
+            },
+            chats: {
+                relation: Model.BelongsToOneRelation,
+                modelClass: ChatsModel,
+                join: {
+                    from: 'users.id',
+                    to: 'chats.userId',
                 },
             },
         }

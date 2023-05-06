@@ -10,4 +10,6 @@ router.post('/', authMiddleware.authentication, controllers.addChat)
 
 router.get('/admin', authMiddleware.authentication, controllers.getAllChatAdmin)
 
+router.get('/detail', authMiddleware.authentication, controllers.getChatDetail)
+
 module.exports = router

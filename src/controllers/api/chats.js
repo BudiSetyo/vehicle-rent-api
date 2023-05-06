@@ -3,16 +3,12 @@ const { response } = require('../../utils/response')
 
 const addChat = async (req, res) => {
     const { senderId, receiverId } = req.query
-    const { text, isRead, userId, vehicleId, adminId } = req.body
+    const data = req.body
 
     const _data = await chatsSchema.insertChat({
-        userId,
-        vehicleId,
-        adminId,
         senderId,
         receiverId,
-        text,
-        isRead,
+        ...data,
     })
 
     if (_data.error) {
@@ -29,7 +25,9 @@ const addChat = async (req, res) => {
 }
 
 const getAllChatAdmin = async (req, res) => {
-    const _data = await chatsSchema.getAllChatAdmin()
+    const { userId } = req.query
+
+    const _data = await chatsSchema.getAllChatAdmin(userId)
 
     if (_data.error) {
         return response(res, 400, {
@@ -40,7 +38,26 @@ const getAllChatAdmin = async (req, res) => {
 
     return response(res, 200, {
         error: false,
-        message: 'get message success',
+        message: 'Get message success',
+        data: _data.data,
+    })
+}
+
+const getChatDetail = async (req, res) => {
+    const { userId } = req.query
+
+    const _data = await chatsSchema.getChatDetail(userId)
+
+    if (_data.error) {
+        return response(res, 400, {
+            error: true,
+            message: 'Get message failed',
+        })
+    }
+
+    return response(res, 200, {
+        error: false,
+        message: 'Get message success',
         data: _data.data,
     })
 }
@@ -48,4 +65,5 @@ const getAllChatAdmin = async (req, res) => {
 module.exports = {
     addChat,
     getAllChatAdmin,
+    getChatDetail,
 }
