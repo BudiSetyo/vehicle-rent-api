@@ -24,10 +24,10 @@ const addChat = async (req, res) => {
     })
 }
 
-const getAllChatAdmin = async (req, res) => {
+const getListChatAdmin = async (req, res) => {
     const { userId } = req.query
 
-    const _data = await chatsSchema.getAllChatAdmin(userId)
+    const _data = await chatsSchema.getListChatAdmin(userId)
 
     if (_data.error) {
         return response(res, 400, {
@@ -62,8 +62,66 @@ const getChatDetail = async (req, res) => {
     })
 }
 
+const getListChatUser = async (req, res) => {
+    const { userId } = req.query
+
+    const _data = await chatsSchema.getListChatUser(userId)
+
+    if (_data.error) {
+        return response(res, 400, {
+            error: true,
+            message: 'Get message failed',
+        })
+    }
+
+    return response(res, 200, {
+        error: false,
+        message: 'Get message success',
+        data: _data.data,
+    })
+}
+
+const deleteChatById = async (req, res) => {
+    const { chatId } = req.query
+
+    const _data = await chatsSchema.deleteChatById(chatId)
+
+    if (_data.error) {
+        return response(res, 400, {
+            error: true,
+            message: 'Delete message failed',
+        })
+    }
+
+    return response(res, 200, {
+        error: false,
+        message: 'Delete message success',
+    })
+}
+
+const readAllChat = async (req, res) => {
+    const { userId } = req.query
+
+    const _data = await chatsSchema.readAllChat(userId)
+
+    if (_data.error) {
+        return response(res, 400, {
+            error: true,
+            message: 'Read message failed',
+        })
+    }
+
+    return response(res, 200, {
+        error: false,
+        message: 'Read message success',
+    })
+}
+
 module.exports = {
     addChat,
-    getAllChatAdmin,
+    getListChatAdmin,
     getChatDetail,
+    getListChatUser,
+    deleteChatById,
+    readAllChat,
 }

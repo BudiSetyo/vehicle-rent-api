@@ -15,6 +15,7 @@ class ChatsModel extends Model {
                 senderId: { type: 'string' },
                 receiverId: { type: 'string' },
                 text: { type: 'string' },
+                isRead: { type: 'boolean' },
                 createdAt: { type: 'string' },
                 updatedAt: { type: 'string' },
             },
