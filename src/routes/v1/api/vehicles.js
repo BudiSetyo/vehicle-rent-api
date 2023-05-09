@@ -9,6 +9,7 @@ const router = express.Router()
 
 router
     .route('/')
+    .post(authMiddleware.authentication, vehiclesController.addVehicle)
     .get(validate(validation.getAllVehicle), vehiclesController.getAllVehicle)
     .patch(
         authMiddleware.authentication,
@@ -20,13 +21,6 @@ router
         validate(validation.deleteVehicle),
         vehiclesController.deleteVehicle
     )
-
-router.post(
-    '/add',
-    authMiddleware.authentication,
-    validate(validation.addVehicle),
-    vehiclesController.addVehicle
-)
 
 router
     .route('/image')
