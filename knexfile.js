@@ -13,6 +13,7 @@ module.exports = {
             user: database.user,
             password: database.password,
             port: database.port,
+            ssl: true,
             charset: 'utf8',
         },
         migrations: {
