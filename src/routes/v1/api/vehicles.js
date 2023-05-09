@@ -9,7 +9,11 @@ const router = express.Router()
 
 router
     .route('/')
-    .post(authMiddleware.authentication, vehiclesController.addVehicle)
+    .post(
+        authMiddleware.authentication,
+        validate(validation.addVehicle),
+        vehiclesController.addVehicle
+    )
     .get(validate(validation.getAllVehicle), vehiclesController.getAllVehicle)
     .patch(
         authMiddleware.authentication,
